@@ -1,59 +1,41 @@
-import React, { Component } from "react";
-import "./App.css";
+import { fireEvent } from "@testing-library/react";
+import React, { useState } from "react";
 
-export default class App extends Component {
-  state = { data: "", sortedArray: "" };
+const App = () => {
+  const [numbers, setNumbers] = useState("");
+  const [results, setResults] = useState([]);
+  function inputhandeler(e) {
+    setNumbers(e.target.value);
+  }
 
-  inputHandeler = (e) => {
-    this.setState({
-      data: e.target.value.split(" "),
-    });
-    console.log(this.state.data);
-  };
-  resethandeler = () => {
-    this.setState({ data: "", sortedArray: "" });
-  };
+  function onclickhandeler() {
+    let arr = numbers.split(" ").join("").split(",");
+    let newArray = arr.map((ele) => Number(ele));
+    bubbleSort(newArray);
+  }
 
-  sumbmitHandeler = () => {
-    this.bubblesort(this.state.data);
-  };
-
-  bubblesort = (array) => {
-    for (let i = 0; i < array.length; i++) {
-      for (let k = 0; k < array.length; k++) {
-        if (array[k] > array[k + 1]) {
-          let temp = array[k];
-          array[k] = array[k + 1];
-          array[k + 1] = temp;
-        } else break;
+  function bubbleSort(arr) {
+    console.log(arr);
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (arr[j] > arr[j + 1]) {
+          let temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
       }
     }
-    this.setState({ sortedArray: array.join(", ") });
-  };
 
-  render() {
-    return (
-      <div className="container">
-        <h1> Array sorting App</h1>
-        <div className="app">
-          <div className="inputfield">
-            <label htmlFor="sort" name=" sort ">
-              Input number ex:2,3,4,5,6 "use coma" and sort the Array:
-            </label>
-            <input
-              id="sort "
-              type="text"
-              onChange={this.inputHandeler}
-              value={this.state.data}
-            />
-            <div className="button_wrapper">
-              <button onClick={this.sumbmitHandeler}> Sort</button>
-              <button onClick={this.resethandeler}> Reset </button>
-            </div>
-          </div>
-          <div className="output">{this.state.sortedArray}</div>
-        </div>
-      </div>
-    );
+    setResults(` here is the sorted array ${arr.join(", ")}`);
   }
-}
+
+  return (
+    <div>
+      <input type="" onChange={inputhandeler} />
+      <button onClick={onclickhandeler}> sort </button>
+      <p>{results}</p>
+    </div>
+  );
+};
+
+export default App;
