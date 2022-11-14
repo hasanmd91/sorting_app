@@ -1,5 +1,5 @@
-import { fireEvent } from "@testing-library/react";
 import React, { useState } from "react";
+import "./App.css";
 
 const App = () => {
   const [numbers, setNumbers] = useState("");
@@ -10,8 +10,8 @@ const App = () => {
 
   function onclickhandeler() {
     let arr = numbers.split(" ").join("").split(",");
-    let newArray = arr.map((ele) => Number(ele));
-    bubbleSort(newArray);
+    let newArr = arr.map((ele) => Number(ele));
+    bubbleSort(newArr);
   }
 
   function bubbleSort(arr) {
@@ -26,14 +26,20 @@ const App = () => {
       }
     }
 
-    setResults(` here is the sorted array ${arr.join(", ")}`);
+    setResults(` Here is the sorted array ${arr.join(", ")}`);
   }
 
   return (
-    <div>
-      <input type="" onChange={inputhandeler} />
-      <button onClick={onclickhandeler}> sort </button>
-      <p>{results}</p>
+    <div className="container">
+      <div className="app">
+        <h1> Sorting App</h1>
+        <div className="inputfield">
+          <label htmlFor="input"> Input Numbers ex: 9,8,76</label>
+          <input id="input" type="text" onChange={inputhandeler} />
+          <button onClick={onclickhandeler}> Buble sort </button>
+        </div>
+        <p className="output ">{results}</p>
+      </div>
     </div>
   );
 };
