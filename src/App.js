@@ -8,7 +8,8 @@ const App = () => {
     setNumbers(e.target.value);
   }
 
-  function onclickhandeler() {
+  function onclickhandeler(e) {
+    e.preventDefault();
     let arr = numbers.split(" ").join("").split(",");
     let newArr = arr.map((ele) => Number(ele));
     bubbleSort(newArr);
@@ -31,12 +32,20 @@ const App = () => {
 
   return (
     <div className="container">
+      <h1> Sorting App</h1>
       <div className="app">
-        <h1> Sorting App</h1>
         <div className="inputfield">
-          <label htmlFor="input"> Input Numbers ex: 9,8,76</label>
-          <input id="input" type="text" onChange={inputhandeler} />
-          <button onClick={onclickhandeler}> Buble sort </button>
+          <form onSubmit={onclickhandeler}>
+            <label htmlFor="input"> Input numbers using comma: </label>
+            <input
+              required
+              id="input"
+              type="text"
+              onChange={inputhandeler}
+              placeholder="please input number ex :7,8,9,2,3,4 "
+            />
+            <button type="submit"> Buble sort </button>
+          </form>
         </div>
         <p className="output ">{results}</p>
       </div>
